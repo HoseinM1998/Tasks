@@ -6,4 +6,20 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="9.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\App.Domain.AppService\App.Domain.AppService.csproj" />
+    <ProjectReference Include="..\App.Domain.Core\App.Domain.Core.csproj" />
+    <ProjectReference Include="..\App.Domain.Service\App.Domain.Service.csproj" />
+    <ProjectReference Include="..\App.Infra.Acssess.EfCore\App.Infra.Acssess.EfCore.csproj" />
+    <ProjectReference Include="..\App.Infra.Db.Sql\App.Infra.Db.Sql.csproj" />
+  </ItemGroup>
+
 </Project>

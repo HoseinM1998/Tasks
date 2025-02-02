@@ -1,7 +1,54 @@
+using App.Domain.AppService;
+using App.Domain.Core.Contract.Task;
+using App.Domain.Core.Contract.User;
+using App.Domain.Core.Entites.Config;
+using App.Domain.Service;
+using App.Infra.Acssess.EfCore.Repository;
+using App.Infra.Db.Sql;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+
+
+
+
+
+builder.Services.AddControllersWithViews()
+    .AddRazorRuntimeCompilation();
+
+
+
+var taskUnfinished = builder.Configuration.GetSection("LimitTask:TaskUnfinished").Value;
+builder.Services.AddSingleton(taskUnfinished);
+
+
+
+var congiguration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+var siteSetting = congiguration.GetSection(nameof(SiteSetting)).Get<SiteSetting>();
+builder.Services.AddSingleton(siteSetting);
+
+builder.Services.AddDbContext<AppDbContext>(option =>
+    option.UseSqlServer(siteSetting.ConnectionString.SqlConnection)
+);
+
+
+//builder.Services.AddScoped<IUseAppService, UserAppService>();
+
+//builder.Services.AddScoped<ITaskRepository, TaskRepository>();
+//builder.Services.AddScoped<ITaskService, TaskService>();
+//builder.Services.AddScoped<ITaskAppService, TaskAppService>();
+
+
+
+
+
+
+
+
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
 
 var app = builder.Build();
 
