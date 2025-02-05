@@ -1,0 +1,17 @@
+﻿@page
+@model App.Endpoint.Razor.Pages.Task.DeleteTaskModel
+@{
+    ViewData["Title"] = "حذف تسک";
+}
+
+<h3>حذف تسک</h3>
+
+<div>
+    <h4>آیا از حذف این تسک اطمینان دارید؟</h4>
+    <form method="post" asp-page="/Task/DeleteTask" asp-route-id="@Request.Query["id"]">
+        <button type="submit" class="btn btn-danger btn-sm">حذف</button>
+        <a href="@Url.Page("/Task/ListTask")" class="btn btn-secondary btn-sm">بازگشت</a>
+    </form>
+
+
+</div>

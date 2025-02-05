@@ -1,0 +1,38 @@
+﻿@page
+@model App.Endpoint.Razor.Pages.Task.ChangeStatusTaskModel
+@{
+    ViewData["Title"] = "تغییر وضعیت تسک";
+}
+
+<h2>تغییر وضعیت تسک</h2>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Success"]
+    </div>
+}
+
+<form method="post">
+    <input type="hidden" name="taskId" value="@Model.Task?.Id" />
+
+    <div class="form-check">
+        <input id="completed" class="form-check-input" type="radio" name="newStatus" value="true" @(Model.Task?.IsCompleted == true ? "checked" : "") />
+        <label for="completed" class="form-check-label">اتمام یافته</label>
+    </div>
+
+    <div class="form-check">
+        <input id="notCompleted" class="form-check-input" type="radio" name="newStatus" value="false" @(Model.Task?.IsCompleted == false ? "checked" : "") />
+        <label for="notCompleted" class="form-check-label">در حال انجام</label>
+    </div>
+
+    <button type="submit" class="btn btn-dark mt-3">ثبت</button>
+</form>
+
+<a asp-page="/Task/ListTask" class="btn btn-secondary mt-3">بازگشت</a>

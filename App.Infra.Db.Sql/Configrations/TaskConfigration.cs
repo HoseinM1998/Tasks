@@ -14,7 +14,8 @@ namespace App.Infra.Db.Sql.Configrations
     {
         public void Configure(EntityTypeBuilder<Task> builder)
         {
-            throw new NotImplementedException();
+            builder.HasKey(x => x.Id);
+
         }
     }
 }

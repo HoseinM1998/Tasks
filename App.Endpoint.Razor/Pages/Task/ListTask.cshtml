@@ -1,0 +1,67 @@
+﻿@page
+@model App.Endpoint.Razor.Pages.Task.ListTaskModel
+@{
+    ViewData["Title"] = "لیست تسک‌ها";
+}
+
+<div class="container my-4">
+    <h2 class="mb-3">لیست تسک‌های شما</h2>
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">
+            <samp>@TempData["ErrorMessage"].ToString()</samp>
+        </div>
+    }
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-primary">
+            <samp>@TempData["Success"].ToString()</samp>
+        </div>
+    }
+
+    <div class="alert alert-info alert-lg" style="font-size: 20px; background-color: #f8d7da; color: #721c24;">
+        تعداد تسک‌های ناتمام : <strong>@Model.TaskUnfinished</strong>
+    </div>
+
+
+
+    @if (Model.Tasks != null && Model.Tasks.Any())
+    {
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>عنوان</th>
+                <th>توضیحات</th>
+                <th>تاریخ اضافه شدن</th>
+                <th>وضعیت</th>
+                <th>عملیات</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var task in Model.Tasks)
+            {
+                <tr>
+                    <td>@task.Title</td>
+                    <td>@task.Description</td>
+                    <td>@task.CreatAt.ToString("yyyy/MM/dd HH:mm")</td> 
+                    <td>@(task.IsCompleted ? "اتمام یافته" : "در حال انجام")</td>
+
+                        <td>
+                            <a asp-page="/Task/UpdateTask" asp-route-id="@task.Id" class="btn btn-warning btn-sm">ویرایش</a>
+                            <a asp-page="/Task/DeleteTask" asp-route-id="@task.Id" class="btn btn-danger btn-sm">حذف</a>
+                            <a asp-page="/Task/ChangeStatusTask" asp-route-taskId="@task.Id" class="btn btn-dark btn-sm">تغییر وضعیت</a>
+                        </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="alert alert-info">هیچ تسکی ثبت نشده است.</div>
+    }
+
+    <a asp-page="/Task/CreateTask" class="btn btn-success">افزودن تسک جدید</a>
+</div>

@@ -10,6 +10,5 @@ namespace App.Domain.Core.Entites
     public class User : IdentityUser<int>
     {
         public List<Task> Tasks { get; set; }
-
     }
 }

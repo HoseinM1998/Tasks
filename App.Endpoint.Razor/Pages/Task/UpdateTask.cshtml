@@ -1,0 +1,30 @@
+﻿@page
+@model App.Endpoint.Razor.Pages.Task.UpdateTaskModel
+@{
+    ViewData["Title"] = "ویرایش تسک";
+}
+
+<div class="container my-4">
+    <h2 class="mb-3">ویرایش تسک</h2>
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">
+            <samp>@TempData["ErrorMessage"].ToString()</samp>
+        </div>
+    }
+
+    <form method="post">
+        <div class="form-group">
+            <label for="Title">عنوان</label>
+            <input type="text" class="form-control" id="Title" name="Title" value="@Model.Task.Title" />
+        </div>
+
+        <div class="form-group">
+            <label for="Description">توضیحات</label>
+            <textarea class="form-control" id="Description" name="Description">@Model.Task.Description</textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3">ذخیره تغییرات</button>
+    </form>
+</div>

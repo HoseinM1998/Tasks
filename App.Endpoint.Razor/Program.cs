@@ -1,10 +1,13 @@
 using App.Domain.AppService;
 using App.Domain.Core.Contract.Task;
 using App.Domain.Core.Contract.User;
+using App.Domain.Core.Entites;
 using App.Domain.Core.Entites.Config;
+using App.Domain.Core.PersianIdentity;
 using App.Domain.Service;
 using App.Infra.Acssess.EfCore.Repository;
 using App.Infra.Db.Sql;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -32,11 +35,11 @@ builder.Services.AddDbContext<AppDbContext>(option =>
 );
 
 
-//builder.Services.AddScoped<IUseAppService, UserAppService>();
+builder.Services.AddScoped<IUseAppService, UserAppService>();
 
-//builder.Services.AddScoped<ITaskRepository, TaskRepository>();
-//builder.Services.AddScoped<ITaskService, TaskService>();
-//builder.Services.AddScoped<ITaskAppService, TaskAppService>();
+builder.Services.AddScoped<ITaskRepository, TaskRepository>();
+builder.Services.AddScoped<ITaskService, TaskService>();
+builder.Services.AddScoped<ITaskAppService, TaskAppService>();
 
 
 
@@ -49,6 +52,19 @@ builder.Services.AddDbContext<AppDbContext>(option =>
 // Add services to the container.
 builder.Services.AddRazorPages();
 
+
+
+builder.Services.AddIdentity<User, IdentityRole<int>>(options =>
+    {
+        options.SignIn.RequireConfirmedAccount = false;
+        options.Password.RequireDigit = false;
+        options.Password.RequiredLength = 5;
+        options.Password.RequireNonAlphanumeric = false;
+        options.Password.RequireUppercase = false;
+        options.Password.RequireLowercase = false;
+    })
+    .AddErrorDescriber<PersianIdentityErrorDescriber>()
+    .AddEntityFrameworkStores<AppDbContext>();
 
 var app = builder.Build();
 

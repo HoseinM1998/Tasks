@@ -1,0 +1,29 @@
+﻿@page
+@model App.Endpoint.Razor.Pages.Task.CreateTaskModel
+
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        <samp>
+            @TempData["Error"].ToString()
+        </samp>
+    </div>
+}
+
+
+<form method="post">
+    <div class="form-group">
+        <label for="title">عنوان تسک</label>
+        <input type="text" id="title" class="form-control" asp-for="Task.Title" />
+    </div>
+
+    <div class="form-group">
+        <label for="description">توضیحات تسک</label>
+        <textarea id="description" class="form-control" asp-for="Task.Description"></textarea>
+    </div>
+
+    <div class="d-grid">
+        <button class="btn btn-primary" type="submit">ایجاد تسک</button>
+    </div>
+</form>

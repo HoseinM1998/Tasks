@@ -1,0 +1,47 @@
+﻿@page
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model LoginModel
+@{
+}
+
+@{
+    Layout = "_Layout_Castum";
+}
+
+
+@if (TempData["Success"] != null)
+
+{
+    <div class="alert alert-primary" role="alert">
+        <samp>
+            @TempData["Success"].ToString()
+
+        </samp>
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        <samp>
+            @TempData["Error"].ToString()
+        </samp>
+    </div>
+}
+
+
+<div class="container px-5 my-5" >
+    <form method="post">
+        <div class="form-floating mb-3">
+            <input class="form-control" asp-for="PageModel.Username" placeholder="نام کاربری" />
+            <label for="username">نام کاربری</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input class="form-control" asp-for="PageModel.Password" type="password" placeholder="رمز عبور" />
+            <label for="password">رمز عبور</label>
+        </div>
+        <div class="d-grid">
+            <button class="btn btn-dark btn-lg " id="submitButton" type="submit">ورود</button>
+        </div>
+    </form>
+</div>
